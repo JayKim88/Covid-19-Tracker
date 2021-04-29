@@ -20,7 +20,7 @@ body {
 }
 
 .app__left {
-  flex: 0.9;
+  width: 50%;
 }
 
 .app__stats {

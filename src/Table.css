@@ -1,14 +1,21 @@
 .table {
+  /* border: 1px solid blue; */
   margin-top: 20px;
+  margin-right: 0;
   overflow: scroll;
   height: 400px;
   color:  #6a5d5d;
+  padding: 0;
   /* Hide scroll bar for Firefox */
   scrollbar-width: none;
 }
 /* Hide scroll bar for Chrome */
 .table::-webkit-scrollbar {
   width: 0px;
+}
+
+table {
+  width: 100%;
 }
 
 .table tr {

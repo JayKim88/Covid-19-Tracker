@@ -43,6 +43,7 @@ function App() {
         const sortedData = sortData(data);
         setTableData(sortedData);
         setContries(countries);
+        // console.log(countries)
       })
     }
     getCountriesData();
@@ -64,7 +65,7 @@ function App() {
     //https://disease.sh/v3/covid-19/countries/[COUNTRY_CODE]
   }
 
-  console.log("COUNTRY INFO >>", countryInfo)
+  // console.log("COUNTRY INFO >>", countryInfo)
 
   return (
     <div className="app">
@@ -76,7 +77,7 @@ function App() {
               <MenuItem value="worldwide">Worldwide</MenuItem>
               {/* Loop through all the countries and show a drop down */}
               {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
+                <MenuItem value={country.value} key={country.name}>{country.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -94,7 +95,7 @@ function App() {
           <Table countries={tableData}></Table>
           <h3>Worldwide new cases</h3>
         </CardContent>
-        <LineGraph/>
+        <LineGraph casesType='cases'/>
            {/* Graph */}
       </Card>
     </div>
