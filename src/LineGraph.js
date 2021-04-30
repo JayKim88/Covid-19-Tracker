@@ -84,10 +84,8 @@ function LineGraph({ casesType }) {
           let chartData = buildChartData(data, casesType);
           setData(chartData);
           // console.log(chartData);
-          // buildChart(chartData);
         });
     };
-
     fetchData();
   }, [casesType]);
 
@@ -103,12 +101,12 @@ function LineGraph({ casesType }) {
                 borderColor: "#CC1034",
                 data: data,
                 label: "New case",
-                hoverBackgroundColor: "blue"
+                hoverBackgroundColor: "blue",
               },
             ],
           }}
-          options={options}
-          style={{height:"300px"}}
+          options={{options}}
+          style={{height:"250px"}}
         />
       )}
     </div>
