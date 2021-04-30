@@ -100,7 +100,7 @@ function LineGraph({ casesType }) {
                 backgroundColor: "#c95c47",
                 borderColor: "#CC1034",
                 data: data,
-                label: "New case",
+                label: `New ${casesType}`,
                 hoverBackgroundColor: "blue",
               },
             ],
