@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import {
   MenuItem,
@@ -7,12 +7,13 @@ import {
   Card,
   CardContent
 } from "@material-ui/core"
-import InfoBox from './Infobox'
-import Map from './Map'
-import Table from './Table'
-import LineGraph from './LineGraph'
-import { sortData, prettyPrintStat } from './util'
-import 'leaflet/dist/leaflet.css'
+import InfoBox from './Infobox';
+import Map from './Map';
+import Table from './Table';
+import LineGraph from './LineGraph';
+import { sortData, prettyPrintStat } from './util';
+import 'leaflet/dist/leaflet.css';
+import downarrow from './images/downarrow.png'
 
 function App() {
   const [countries, setContries] = useState([]);
@@ -23,6 +24,7 @@ function App() {
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
+  const [clickedCountry, setClickedCountry] = useState([]);
 
   useEffect(()=>{
     fetch('https://disease.sh/v3/covid-19/all')
@@ -44,16 +46,21 @@ function App() {
             value: country.countryInfo.iso2
           }
         ))
-        // console.log(data)
         const sortedData = sortData(data);
         setTableData(sortedData);
-        setMapCountries(data);
+        // console.log(data)
+        // console.log(clickedCountry)
+        if(clickedCountry.length !== 0){
+          setMapCountries(clickedCountry);
+        } else {
+          setMapCountries(data);
+        }
         setContries(countries);
         // console.log(countries)
       })
     }
     getCountriesData();
-  }, [])
+  }, [clickedCountry])
 
   const onCountryChange = async (e) => {
     const countryCode = e.target.value
@@ -64,11 +71,16 @@ function App() {
     await fetch(url)
     .then(res => res.json())
     .then(data => {
-      setCountry(countryCode)
       setCountryInfo(data);
-      console.log(data)
-      setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-      setMapZoom(5);
+      if(countryCode === 'worldwide'){
+        setClickedCountry([]);
+        setMapCenter({ lat: 37, lng: 127.5});
+        setMapZoom(3);
+      } else {
+        setClickedCountry([data])
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(5);
+      }
     })
     //https://disease.sh/v3/covid-19/all
     //https://disease.sh/v3/covid-19/countries/[COUNTRY_CODE]
@@ -122,14 +134,13 @@ function App() {
       <Card className="app__right">
         <CardContent>
           <div className="app__information">
-            <div className="liveCases">
               <h3>Live Cases by Country</h3>
               <Table countries={tableData}></Table>
-            </div>
-            <div className="graph">
+              <section className="header-down-arrow">
+                 <img src={downarrow} alt="arrow"/>
+              </section>
               <h3>Worldwide new {casesType}</h3>
-              <LineGraph casesType={casesType}/>
-            </div>
+              <LineGraph casesType={casesType} style={{height: "100%"}}/>
           </div>
         </CardContent>
       </Card>

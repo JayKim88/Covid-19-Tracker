@@ -1,9 +1,9 @@
 .table {
   /* border: 1px solid blue; */
-  margin-top: 20px;
+  margin-top: 10px;
   margin-right: 0;
   overflow: scroll;
-  height: 400px;
+  height: 335px;
   color:  #6a5d5d;
   padding: 0;
   /* Hide scroll bar for Firefox */

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Line, Bar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import numeral from "numeral";
 
 const options = {
+  responsive: true,
+  maintainAspectRatio: false,
   legend: {
     display: false,
   },
@@ -15,7 +17,6 @@ const options = {
     display: true,
     text:''
   },
-  maintainAspectRatio: false,
   tooltips: {
     mode: "index",
     intersect: false,
@@ -36,6 +37,9 @@ const options = {
         time: {
           format: "MM/DD/YY",
           tooltipFormat: "ll",
+        },
+        gridLines: {
+         display: false
         },
       },
     ],
@@ -81,6 +85,7 @@ function LineGraph({ casesType }) {
           return response.json();
         })
         .then((data) => {
+          // console.log(data)
           let chartData = buildChartData(data, casesType);
           setData(chartData);
           // console.log(chartData);
@@ -90,7 +95,7 @@ function LineGraph({ casesType }) {
   }, [casesType]);
 
   return (
-    <div>
+    <div className="app__graph">
       {data?.length > 0 && (
         //! Line with options not working. Mouse-over and label still showing
         <Bar
@@ -101,12 +106,11 @@ function LineGraph({ casesType }) {
                 borderColor: "#CC1034",
                 data: data,
                 label: `New ${casesType}`,
-                hoverBackgroundColor: "blue",
+                hoverBackgroundColor: "black",
               },
             ],
           }}
-          options={{options}}
-          style={{height:"250px"}}
+          options={options}
         />
       )}
     </div>

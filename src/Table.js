@@ -1,6 +1,6 @@
-import React from 'react'
-import './Table.css'
-import numeral from 'numeral'
+import React from 'react';
+import './Table.css';
+import numeral from 'numeral';
 
 function Table({countries}) {
   // console.log(countries)
@@ -21,4 +21,4 @@ function Table({countries}) {
   )
 }
 
-export default Table
+export default Table;
